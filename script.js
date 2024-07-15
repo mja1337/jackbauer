@@ -1,14 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('bauersamples/')
-        .then(response => response.text())
-        .then(data => {
-            const parser = new DOMParser();
-            const htmlDocument = parser.parseFromString(data, "text/html");
-            const items = htmlDocument.querySelectorAll("a[href$='.mp3']");
+    fetch('files.json')
+        .then(response => response.json())
+        .then(files => {
             const soundboard = document.getElementById('soundboard');
 
-            items.forEach(item => {
-                const filename = item.href.split('/').pop();
+            files.forEach(filename => {
                 const buttonLabel = filename.replace(/_/g, ' ').replace('.mp3', '');
                 const button = document.createElement('button');
                 button.classList.add('button');
@@ -21,5 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 soundboard.appendChild(button);
             });
-        });
+        })
+        .catch(error => console.error('Error loading files:', error));
 });
