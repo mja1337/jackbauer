@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.innerText = buttonLabel;
 
                 button.addEventListener('click', () => {
-                    const audio = new Audio(`bauersamples/${filename}`);
+                    const encodedFilename = encodeURIComponent(filename);
+                    const audio = new Audio(`bauersamples/${encodedFilename}`);
                     audio.play();
                 });
 
@@ -26,7 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             randomButton.addEventListener('click', () => {
                 const randomFile = files[Math.floor(Math.random() * files.length)];
-                const audio = new Audio(`bauersamples/${randomFile}`);
+                const encodedFilename = encodeURIComponent(randomFile);
+                const audio = new Audio(`bauersamples/${encodedFilename}`);
                 audio.play();
             });
 
